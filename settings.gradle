@@ -1,0 +1,3 @@
+rootProject.name = 'SelenideHW'
+include 'Test'
+
