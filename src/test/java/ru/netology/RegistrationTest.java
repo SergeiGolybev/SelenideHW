@@ -2,6 +2,7 @@ package ru.netology;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.ElementsCollection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
@@ -11,10 +12,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Condition.ownText;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.withText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationTest {
 
@@ -36,7 +37,7 @@ public class RegistrationTest {
         $("[data-test-id=phone] input").val("+79050444444");
         $("[data-test-id=agreement] span").click();
         $(byText("Забронировать")).click();
-        $("[data-test-id=notification]").shouldBe(Condition.text("Успешно! Встреча успешно забронирована на "
+        $("[data-test-id=notification]").shouldBe(text("Успешно! Встреча успешно забронирована на "
                 + date), Duration.ofSeconds(15));
     }
 
@@ -53,7 +54,7 @@ public class RegistrationTest {
         $("[data-test-id=phone] input").val("+79050444444");
         $("[data-test-id=agreement] span").click();
         $(byText("Забронировать")).click();
-        $("[data-test-id='city'].input_invalid [class='input__sub']").shouldHave(ownText("Доставка в выбранный город недоступна"));
+        $("[data-test-id='city'] [class='input__sub']").shouldHave(ownText("Доставка в выбранный город недоступна"));
     }
 
     @Test
@@ -69,7 +70,7 @@ public class RegistrationTest {
         $("[data-test-id=phone] input").val("+79050444444");
         $("[data-test-id=agreement] span").click();
         $(byText("Забронировать")).click();
-        $("[data-test-id='date'] .input_invalid [class='input__sub']").shouldHave(ownText("Заказ на выбранную дату невозможен"));
+        $("[data-test-id='date'] [class='input__sub']").shouldHave(ownText("Заказ на выбранную дату невозможен"));
 
     }
 
@@ -86,7 +87,7 @@ public class RegistrationTest {
         $("[data-test-id=phone] input").val("+79050444444");
         $("[data-test-id=agreement] span").click();
         $(byText("Забронировать")).click();
-        $("[data-test-id='name'].input_invalid [class='input__sub']").shouldBe(ownText("Имя и Фамилия указаны "));
+        $("[data-test-id='name'] [class='input__sub']").shouldBe(ownText("Имя и Фамилия указаны "));
     }
 
     @Test
@@ -102,7 +103,7 @@ public class RegistrationTest {
         $("[data-test-id=phone] input").val("79050444444");
         $("[data-test-id=agreement] span").click();
         $(withText("Забронировать")).click();
-        $("[data-test-id='phone'].input_invalid [class='input__sub']").shouldHave(ownText("Телефон указан неверно."));
+        $("[data-test-id='phone'] [class='input__sub']").shouldHave(ownText("Телефон указан неверно."));
     }
 
     @Test
@@ -117,7 +118,7 @@ public class RegistrationTest {
         $("[data-test-id=name] input").val("Иванов Иван");
         $("[data-test-id=phone] input").val("+79050444444");
         $(withText("Забронировать")).click();
-        $(" [data-test-id='agreement'].input_invalid [class='checkbox__text']").shouldHave(ownText("Я соглашаюсь"));
+        $(" [data-test-id='agreement'] [class='checkbox__text']").shouldHave(ownText("Я соглашаюсь"));
     }
 
     @Test
@@ -132,7 +133,7 @@ public class RegistrationTest {
         $("[data-test-id=phone] input").val("+79050444444");
         $("[data-test-id=agreement] span").click();
         $(byText("Забронировать")).click();
-        $("[data-test-id='city'].input_invalid [class='input__sub']").shouldHave(ownText("Поле обязательно для заполнения"));
+        $("[data-test-id='city'] [class='input__sub']").shouldHave(ownText("Поле обязательно для заполнения"));
     }
 
     @Test
@@ -146,7 +147,7 @@ public class RegistrationTest {
         $("[data-test-id=phone] input").val("+79050444444");
         $("[data-test-id=agreement] span").click();
         $(byText("Забронировать")).click();
-        $("[data-test-id='date'] .input_invalid [class='input__sub']").shouldHave(ownText("Неверно введена дата"));
+        $("[data-test-id='date'] [class='input__sub']").shouldHave(ownText("Неверно введена дата"));
 
     }
 
@@ -162,7 +163,7 @@ public class RegistrationTest {
         $("[data-test-id=phone] input").val("+79050444444");
         $("[data-test-id=agreement] span").click();
         $(byText("Забронировать")).click();
-        $("[data-test-id='name'].input_invalid [class='input__sub']").shouldBe(ownText("Поле обязательно для заполнения"));
+        $("[data-test-id='name'] [class='input__sub']").shouldBe(ownText("Поле обязательно для заполнения"));
 
     }
 
@@ -178,10 +179,9 @@ public class RegistrationTest {
         $("[data-test-id=name] input").val("Иванов Иван");
         $("[data-test-id=agreement] span").click();
         $(byText("Забронировать")).click();
-        $("[data-test-id='phone'].input_invalid [class='input__sub']").shouldBe(ownText("Поле обязательно для заполнения"));
+        $("[data-test-id='phone'] [class='input__sub']").shouldBe(ownText("Поле обязательно для заполнения"));
 
     }
-
 
 }
 
